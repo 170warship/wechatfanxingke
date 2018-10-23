@@ -1,0 +1,106 @@
+page{
+  height: 100%;
+  width: 100%;
+  overflow-x:hidden;
+}
+.main_view{
+  width: 100%;
+  display: block;
+}
+
+.main_title{
+  font: 21px;
+  color: black;
+  display: block;
+  text-align: center;
+  margin: 19px 0px 25px 0px;
+}
+
+.search{
+  border: 1px solid rgb(246, 246, 246);
+  border-radius: 50px;
+  height: 44px;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.stars{
+
+/* width: 100%; */
+display: flex;
+flex-wrap: wrap;
+padding: 25px 15px 0px 20px;
+align-content: flex-start;
+justify-content: space-between;
+
+}
+
+.single_star{
+  
+  width: 75px;
+  height: 110px;
+  padding: 0;
+  display: block;
+  position: relative;
+  
+}
+
+.star_img{
+  width: 65px;
+  height: 65px;
+  border-radius: 32.5px;
+  margin-left: 5px;
+  display: block;
+}
+
+.star_btn{
+
+  position: absolute;
+  top: 41px;
+  left: 41px;
+  width: 24px;
+  height: 24px;
+}
+
+.star_name{
+  font: 14px;
+  color: rgb(47, 47, 47);
+  display: block;
+  margin: 5px 0px 0px -25px;
+  /* height: 20px; */
+  width: 125px;
+text-align:center; 
+  text-overflow:clip;
+  word-break: break-all;
+   /* white-space: nowrap;  */
+}
+
+.foot_placeholder{
+    height: 80px;
+}
+.foot{
+  position: fixed;
+  width: 220px;
+  height: 50px; 
+  bottom: 10px;
+  left: 50%;
+  margin-left: -110px;
+  text-align: center;
+  line-height: 46px;
+  font:15px;
+  color: #ffffff;
+  /* margin-top: -50px; */
+}
+
+.foot_hover{
+  color: #bbbbbb;
+}
+
+
+.foot_btn{
+  width: 220px;
+  height: 50px;
+  position: absolute;
+  left: 0px;
+  z-index: -1;
+}

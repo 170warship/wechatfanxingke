@@ -1,0 +1,49 @@
+
+<template name="starCell">
+    <view class='star_cell' data-starid='{{sid}}' bindtap='selectSingleStar'>
+        <image class='star_cell_img' src='{{logo_img}}' ></image>
+        <text class='star_cell_txt'>{{name}}</text> 
+        <view class='star_cell_btn'>
+            <image class='star_cell_btn_img' style="display:{{isSelect?'block':'none'}};" src='../../images/guide/star_has_add_btn.png'></image>
+            <image class='star_cell_btn_img' style="display:{{isSelect?'none':'block'}};" src='../../images/guide/star_add_btn.png'></image>
+        </view>
+        
+    </view>
+</template>
+
+
+
+<view class='main_view'>
+    <view class='search_frame'>
+        <view class='search_btn' hover='true' hover-class='search_btn_hover' bindtap='searchClick'>搜索</view>
+        <view class='search_view'>
+            <input id="search_input_text" class='search_input' confirm-type='done' placeholder='搜索你的爱豆' bindconfirm='inputSucess' bindinput="bindKeyInput" focus='true'></input>
+        </view>
+    </view> 
+
+
+    <view style='height:73px;background-color:white;'></view> 
+    <view>  
+        
+        <block wx:for="{{starArray}}">
+            <template is="starCell" data="{{...item}}"/>
+        </block>
+        
+    </view> 
+</view>
+
+<view class='foot_placeholder'></view>
+<view class='foot' bindtap='selectStarsComplete' hover='true' hover-class='foot_hover' style='display:{{starArray.length > 0?"block;":"none;"}}'>
+    <image class='foot_btn' src = "../../images/guide/select_star_btn_bg.png"></image>
+    选好了
+</view>
+
+
+<view class='nothing_view' style='display:{{needShowErrorView?"flex;":"none;"}}'>
+    <image class='nothing_view_img' style='display:{{isNoStar?"block;":"none;"}}' src='../../images/search/no_stars.png'></image>
+    <image class='nothing_view_img' style='display:{{isNoStar?"none;":"block;"}}' src='../../images/search/net_error.png'></image>
+    <text class='nothing_view_txt'>{{errorText}}</text>
+    <view class='nothing_view_btn' style='display:{{needShowRetryBtn?"block;":"none;"}}' bindtap='retrySearch'>
+        <text class='nothing_view_btn_txt'>点击重试</text>
+    </view>
+</view>

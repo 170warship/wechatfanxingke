@@ -1,0 +1,21 @@
+<!--pages/part_page/swiper_page.wxml-->
+
+<swiper style='width:750rpx;height:500px;'>
+    <swiper-item >
+    
+        <movable-area style="height: 100%; width: 100%;" >
+            <movable-view style="background-color:green;height: 950px; width: 50px; background: linear-gradient(#FF558A, #FFA242 80%);" out-of-bounds="true" x="50" y="950" friction="3" inertia="true" damping="50" direction="vertical" bindchange="change" scale-value="5" scale="true">
+            </movable-view>
+        </movable-area>
+    </swiper-item>
+
+    <swiper-item >
+
+        <movable-area style="height: 100%; width: 100%;">
+            <movable-view style="background-color:green;height: 950px; width: 50px; background: red;" out-of-bounds="true" x="50" y="950" direction="horizontal">
+            </movable-view>
+        </movable-area>
+    
+    </swiper-item>
+
+</swiper>

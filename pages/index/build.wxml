@@ -1,0 +1,7 @@
+<!--pages/index/build.wxml-->
+
+<view class='resource'>{{resource}}</view>
+
+<view class='build_upgrade' data-build-index='0' bindtap='clickToUpgrade'>1(food_building)</view>
+
+<view class='build_upgrade' data-build-index='1' bindtap='clickToUpgrade'>2(iron_building)</view>

@@ -1,0 +1,10 @@
+/* pages/part_page/part_page.wxss */
+
+.tab_btn{
+    width:250rpx;
+    font-size: 15px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    display: inline-block;
+}

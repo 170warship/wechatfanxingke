@@ -1,0 +1,19 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/guide/guide",
+        "pages/search_star/search_star",
+        "pages/index/scroll_index",
+        "pages/part_page/part_page",
+        "pages/part_page/swiper_page",
+        "pages/index/fang",
+        "pages/index/build"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "爱豆",
+        "navigationBarTextStyle": "black"
+    }
+}

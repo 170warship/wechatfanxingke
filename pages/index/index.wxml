@@ -1,0 +1,39 @@
+<template name="text_template">
+    <view class='list_view' >
+        <view style="color:green;">{{text}}</view>
+    </view>
+</template>
+
+
+<view class="container">
+    <image src="http://a488.phobos.apple.com/us/r30/Purple128/v4/46/39/79/4639794d-a837-e531-7034-3dbca01a35f0/attachment-2911284341216225633Screenshot-0721-135011.png?downloadKey3=1532502983_c34691992ea6d1388ad67ee2de0b2a50"></image>
+
+    <text>这是直接显示</text>
+    <view style="color:orange;" data-value="1" bindtap="alert">{{text1}}</view>
+
+    <text>这是循环</text>
+    <view class='list_view' wx:for="{{infoList}}">
+        <view style='color:blue;'>{{index}}:{{item.text}}</view>
+    </view>
+
+    <text>用block循环</text>
+    <block wx:for="{{infoList}}">
+        <view class='list_view'>
+            <view style='color:red;'>{{index}}:{{item.text}}</view>
+        </view>
+    </block>
+
+    <text>这是模版</text>
+    <block wx:for="{{infoList}}">
+        <template is="text_template" data="{{...item}}" />
+    </block>   
+
+     <!-- <scroll-view scroll-y="true" style='height:120px;width:200px;background-color:#f0f0f0;' bindscrolltoupper="toupper" bindscrolltolower="tolower" bindscroll="scrolling">
+    
+        <view class='list_view' wx:for="{{infoList}}">
+            <view style='color:blue;'>{{index}}:{{item.text}}</view>
+        </view>
+    
+    </scroll-view>  -->
+
+</view>

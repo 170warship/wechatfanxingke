@@ -1,0 +1,13 @@
+/* pages/index/build.wxss */
+
+
+.resource{
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.build_upgrade{
+    width: 100;
+
+    height: 100;
+}

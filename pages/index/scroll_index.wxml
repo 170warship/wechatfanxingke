@@ -1,0 +1,32 @@
+<!--pages/index/scroll_index.wxml-->
+
+<view>
+    <view style='background-color:red;height:300px;width:750rpx;'>
+    aaaa
+    </view>
+    <swiper style='width:750rpx;height:{{height}}px;'>
+        <swiper-item>
+            <!-- <scroll-view scroll-y="true" style='height:500rpx;width:750rpx;background-color:#f0f0f0;' bindscrolltoupper="toupper" bindscrolltolower="tolower" bindscroll="scrolling"> -->
+            <view class='list_view_bg1'>
+            <view class='list_view' wx:for="{{infoList}}">
+                <view style='color:blue;'>{{index}}:{{item.text}}</view>
+            </view>
+            </view>
+            <!-- </scroll-view> -->
+        </swiper-item>
+
+        <swiper-item>
+            <!-- <scroll-view scroll-y="true" style='height:500rpx;width:750rpx;background-color:#f0f0f0;' bindscrolltoupper="toupper" bindscrolltolower="tolower" bindscroll="scrolling"> -->
+        
+            <view class='list_view' wx:for="{{infoList}}">
+                <view style='color:blue;'>{{index}}:{{item.text}}</view>
+            </view>
+
+            <!-- </scroll-view> -->
+        </swiper-item>
+        
+
+    </swiper>
+
+
+</view>

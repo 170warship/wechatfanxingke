@@ -1,0 +1,38 @@
+<!--guide.wxml-->
+<view class="main_view">
+  <text class="main_title">选择爱豆，看他行程</text>
+  <view class="search" bindtap='searchStar'>
+  </view>
+
+  <view scroll-y class="stars">
+    <block wx:for="{{starArray}}">
+    <view class='single_star' data-starid='{{item.sid}}' bindtap='selectSingleStar'>
+        <image class='star_img' src='{{item.logo_img}}'>
+        </image>
+
+
+        <image class='star_btn' style="display:{{item.isSelect?'block':'none'}};" src='../../images/guide/star_has_add_btn.png'></image>
+        <image class='star_btn' style="display:{{item.isSelect?'none':'block'}};" src='../../images/guide/star_add_btn.png'></image>
+        <text class='star_name'>{{item.name}}</text>
+    </view>
+    </block>
+
+    <block wx:if="{{starArray.length > 0}}">
+    <view class='single_star' bindtap='changeOtherStars'>
+        <image class='star_img' style='background-color:#f4f4f4;position:relative;' >
+            <image style="position:absolute;width:24px;height:24px;top:20px;left:20px;" src='../../images/guide/star_has_add_btn.png'></image>
+        </image>
+
+        <text class='star_name' style="color:#999999">换一批</text>
+    </view>
+    </block>
+
+  </view>
+
+  
+</view>
+<view class='foot_placeholder'></view>
+<view class='foot' bindtap='selectStarsComplete' hover='true' hover-class='foot_hover' style='display:{{starArray.length > 0?"block;":"none;"}}'>
+    <image class='foot_btn' src = "../../images/guide/select_star_btn_bg.png"></image>
+    选好了
+</view>

@@ -1,0 +1,169 @@
+page{
+  width: 100%;
+  height: 100%;
+  overflow-y:hidden;
+}
+.main_view{
+  width: 100%;
+}
+
+.search_frame{
+    width:100%;
+    position: fixed;
+    top: 0px;
+    height: 64px;
+    background-color: white;
+
+}
+.search_view{
+    
+    display: block;
+    /* float: right;  */
+    border: 1px solid #ff488d;
+    border-radius: 50px;
+     /* width: auto;  */
+    height: 44px;
+    /* width: 610rpx; */
+    margin-left: 12px; 
+    margin-right: 70px; 
+    margin-top: 19px;
+}
+
+.search_input{
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 44px;
+}
+
+.search_btn{
+    line-height: 46px;
+    text-align: center;
+    font: 15px;
+    color: #2f2f2f;
+    float:right;
+    height: 46px;
+    width:70px;
+    margin-top: 19px;
+
+}
+
+.search_btn_hover{
+    color: #bbbbbb;
+}
+
+.star_cell{
+    height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.star_cell_img{
+    width: 54px;
+    height: 54px;
+    border-radius: 27px;
+    /* position: relative; */
+    margin-left: 12px;
+}
+
+.star_cell_txt{
+    font: 15px;
+    color: #2f2f2f;
+    line-height: 74px;  
+    /* margin-left: 12px; */
+    display: block;  
+    flex-grow:10;
+    margin-left: 12px; 
+    /* position: relative; */
+}
+
+.star_cell_btn{
+    width: 54px;
+    height: 54px;
+    /* position: relative; */
+    /* background-color: red; */
+    margin-right: 10px;
+    
+}
+
+.star_cell_btn_img{
+
+    width: 32px;
+    height: 32px;
+    margin: 11px 0px auto auto; 
+
+}
+
+.foot_placeholder{
+    height: 80px;
+}
+.foot{
+  position: fixed;
+  width: 220px;
+  height: 50px; 
+  bottom: 10px;
+  left: 50%;
+  margin-left: -110px;
+  text-align: center;
+  line-height: 46px;
+  font:15px;
+  color: #ffffff;
+  /* margin-top: -50px; */
+}
+
+.foot_hover{
+  color: #bbbbbb;
+}
+
+
+.foot_btn{
+  width: 220px;
+  height: 50px;
+  position: absolute;
+  left: 0px;
+  z-index: -1;
+}
+
+.nothing_view{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    top: 146px;
+}
+
+.nothing_view_img{
+    width: 180px;
+    height: 155px;
+}
+.nothing_view_txt{
+    font:14px;
+    color:#2f2f2f;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.nothing_view_btn{
+
+    border: 1px solid #ff488d;
+    border-radius: 100px;
+
+}
+
+.nothing_view_hover .nothing_view_btn_txt{
+
+    font: 14px;
+    color: gray;
+    line-height: 31px;
+    margin: auto 32px;
+
+}
+
+.nothing_view_btn_txt{
+    font: 14px;
+    color: #ff488d;
+    line-height: 31px;
+    margin: auto 32px;
+}

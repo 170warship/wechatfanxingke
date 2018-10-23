@@ -1,0 +1,5 @@
+<view>
+    <view class='tab_btn' data-tap="1" bindtap='switchTab'>1</view>
+    <view class='tab_btn' data-tap="2" bindtap='switchTab'>2</view>
+    <view class='tab_btn' data-tap="3" bindtap='switchTab'>3</view>
+</view>
