@@ -8,7 +8,8 @@
         "pages/part_page/part_page",
         "pages/part_page/swiper_page",
         "pages/index/fang",
-        "pages/index/build"
+        "pages/index/build",
+        "pages/index/train"
     ],
     "window": {
         "backgroundTextStyle": "light",

@@ -1,0 +1,4 @@
+<!--pages/index/train.wxml-->
+<view class='resource' data-index="0" bindtap='produceTroop'>train1</view>
+
+<view class='resource' data-index="1" bindtap='produceTroop'>train2</view>

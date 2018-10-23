@@ -1,4 +1,5 @@
 // pages/index/build.js
+const app = getApp()
 Page({
 
     /**
@@ -7,11 +8,7 @@ Page({
     data: {
         resource:'',
     },
-    allResource:[0,0,0,0,0,0,0,0,0,0,1000,0,0,],//参照resource_type_...里的说明
-
-    allBuilding:[],
-
-    ClassDic:{},
+    
 
     loopTimer:null,
     /**
@@ -29,6 +26,14 @@ Page({
         const resource_type_castle_core = 10;
 
 
+        const building_type_food = 1;
+        const building_type_iron = 2;
+        const building_type_train = 3;
+
+
+        const ALL_OUTPUT_INTERVAL = 30;
+
+
         var Class1 = {
 
             _id: 1005,
@@ -39,7 +44,7 @@ Page({
 
             output:100,
 
-            outputInterval: 10,
+            outputInterval: ALL_OUTPUT_INTERVAL,
 
             level:1,
 
@@ -61,7 +66,7 @@ Page({
 
             output: 102,
 
-            outputInterval: 10,
+            outputInterval: ALL_OUTPUT_INTERVAL,
 
             level: 2,
 
@@ -84,7 +89,7 @@ Page({
 
             output: 100,
 
-            outputInterval: 10,
+            outputInterval: ALL_OUTPUT_INTERVAL,
 
             level: 1,
 
@@ -106,7 +111,7 @@ Page({
 
             output: 102,
 
-            outputInterval: 10,
+            outputInterval: ALL_OUTPUT_INTERVAL,
 
             level: 2,
 
@@ -118,7 +123,13 @@ Page({
 
         };
 
+        var Class5 = {
 
+            _id: 1205,
+
+            level:2,
+
+        }
 
 
 
@@ -142,25 +153,36 @@ Page({
         ClassDic[Class2._id] = Class2;
         ClassDic[Class3._id] = Class3;
         ClassDic[Class4._id] = Class4;
+        ClassDic[Class5._id] = Class5;
 
-        this.ClassDic = ClassDic;
+        app.globalData.ClassDic = ClassDic;
 
 
-        this.allBuilding[0] = objF;
+        app.globalData.allBuilding[building_type_food] = objF;
 
-        this.allBuilding[1] = objI;
+        app.globalData.allBuilding[building_type_iron] = objI;
 
+        app.globalData.allBuilding[building_type_train] = { classId:1205 };
 
 
         var timeInterval = 1;
         this.loopTimer = setInterval(function(){
 
-            for(var i = 0; i < oThis.allBuilding.length; i ++){
-                var obj = oThis.allBuilding[i];
+            for (var i = 0; i < app.globalData.allBuilding.length; i ++){
+                var obj = app.globalData.allBuilding[i];
+
+                if(!obj){
+                    continue;
+                }
+
                 var objClass = ClassDic[obj.classId];
 
+                if(!objClass){
+                    continue;
+                }
+
                 if (obj.remainInterval <= 0) {
-                    oThis.allResource[objClass.production] += objClass.output;
+                    app.globalData.allResource[objClass.production] += objClass.output;
                     obj.remainInterval = objClass.outputInterval;
                 } else {
                     obj.remainInterval -= timeInterval;
@@ -168,7 +190,7 @@ Page({
 
                 // console.log('resource:', oThis.allResource);
 
-                oThis.setData({ resource: oThis.allResource.join(',') });
+                oThis.setData({ resource: app.globalData.allResource.join(',') });
             }
 
             
@@ -177,6 +199,13 @@ Page({
 
     },
 
+
+    goGotTrain:function(){
+
+        wx.navigateTo({
+            url: 'train',
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -224,14 +253,14 @@ Page({
     },
     upgrade:function(index){
         var oThis = this;
-        var building = this.allBuilding[index];
+        var building = app.globalData.allBuilding[index];
 
 
         if(!building){
             return;
         }
 
-        var cls = this.ClassDic[building.classId];
+        var cls = app.globalData.ClassDic[building.classId];
 
 
         var canUp = !!cls.nexUpgradeToClassId;
@@ -241,7 +270,7 @@ Page({
 
         for (var i = 0; i < cls.nextUpgradeSources.length && canUp ;i ++)
         {
-            var nowUpResourceAmount = this.allResource[ cls.nextUpgradeSources[i] ];
+            var nowUpResourceAmount = app.globalData.allResource[ cls.nextUpgradeSources[i] ];
 
             var needUpResourceAmount = cls.nextUpgradeSourcesAmount[i];
 
@@ -256,11 +285,11 @@ Page({
         if(canUp){
 
             for (var i = 0; i < cls.nextUpgradeSources.length; i++) {
-                var nowUpResourceAmount = this.allResource[cls.nextUpgradeSources[i]];
+                var nowUpResourceAmount = app.globalData.allResource[cls.nextUpgradeSources[i]];
 
                 var needUpResourceAmount = cls.nextUpgradeSourcesAmount[i];
 
-                this.allResource[cls.nextUpgradeSources[i]] = nowUpResourceAmount - needUpResourceAmount;
+                app.globalData.allResource[cls.nextUpgradeSources[i]] = nowUpResourceAmount - needUpResourceAmount;
 
             }
 
@@ -268,11 +297,11 @@ Page({
 
             oThis.allBuilding[index].classId = cls.nexUpgradeToClassId;
 
-            console.log('after upgrade resource:', oThis.allResource);
+            console.log('after upgrade resource:', app.globalData.allResource);
 
-            oThis.setData({resource:oThis.allResource.join(',')});
+            oThis.setData({ resource: app.globalData.allResource.join(',')});
 
-            console.log('building:', oThis.allBuilding[index]);
+            console.log('building:', app.globalData.allBuilding[index]);
         }
 
 

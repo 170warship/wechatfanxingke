@@ -34,6 +34,14 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+      allResource: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1000, 0, 0,],//参照resource_type_...里的说明
+
+      allBuilding: [],
+
+      ClassDic: {},
+
+      troopsDic:{
+
+      }
   }
 })
