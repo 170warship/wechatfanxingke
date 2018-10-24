@@ -6,5 +6,7 @@
 
 <view class='build_upgrade' data-build-index='1' bindtap='clickToUpgrade'>2(iron_building)</view>
 
+<view class='build_upgrade' data-build-index='5' bindtap='clickToUpgrade'>5(main_city_building)</view>
+
 
 <view bindtap='goGotTrain'>go troop train</view>

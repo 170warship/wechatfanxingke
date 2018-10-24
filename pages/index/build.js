@@ -1,4 +1,19 @@
 // pages/index/build.js
+
+import {
+    LoginTypeEnum,
+    getResourceAmount,
+    changeResourceAmount,
+    getTroopAmount,
+    changeTroopAmount,
+    canProduceTroop,
+    produceTroop,
+    canUpgradeBuilding,
+    upgradeBuilding,
+    getBuilding,
+    resourceProduceLoop
+} from "../../commonscript/common/Logic.js"
+
 const app = getApp()
 Page({
 
@@ -18,182 +33,184 @@ Page({
 
         var oThis = this;
 
-        const class_type_building = 1;
+        // const class_type_building = 1;
 
-        const resource_type_wood = 1;//这个序号也是资源数组里的下标索引
-        const resource_type_iron = 2;
-        const resource_type_food = 3;
-        const resource_type_castle_core = 10;
-
-
-        const building_type_food = 1;
-        const building_type_iron = 2;
-        const building_type_train = 3;
+        // const resource_type_wood = 1;//这个序号也是资源数组里的下标索引
+        // const resource_type_iron = 2;
+        // const resource_type_food = 3;
+        // const resource_type_castle_core = 10;
 
 
-        const ALL_OUTPUT_INTERVAL = 30;
+        // const building_type_food = 1;
+        // const building_type_iron = 2;
+        // const building_type_train = 3;
 
 
-        var Class1 = {
-
-            _id: 1005,
-
-            classType: class_type_building,
-
-            production: resource_type_food,
-
-            output:100,
-
-            outputInterval: ALL_OUTPUT_INTERVAL,
-
-            level:1,
-
-            nextUpgradeSources: [resource_type_castle_core],
-
-            nextUpgradeSourcesAmount:[100],
-
-            nexUpgradeToClassId: 1006,
-
-        };
-
-        var Class2 = {
-
-            _id: 1006,
-
-            classType: class_type_building,
-
-            production: resource_type_food,
-
-            output: 102,
-
-            outputInterval: ALL_OUTPUT_INTERVAL,
-
-            level: 2,
-
-            nextUpgradeSources: [resource_type_castle_core],
-
-            nextUpgradeSourcesAmount: [100],
-
-            nexUpgradeToClassId: null,
-
-        };
+        // const ALL_OUTPUT_INTERVAL = 30;
 
 
-        var Class3 = {
+        // var Class1 = {
 
-            _id: 1105,
+        //     _id: 1005,
 
-            classType: class_type_building,
+        //     classType: class_type_building,
 
-            production: resource_type_iron,
+        //     production: resource_type_food,
 
-            output: 100,
+        //     output:100,
 
-            outputInterval: ALL_OUTPUT_INTERVAL,
+        //     outputInterval: ALL_OUTPUT_INTERVAL,
 
-            level: 1,
+        //     level:1,
 
-            nextUpgradeSources: [resource_type_castle_core],
+        //     nextUpgradeSources: [resource_type_castle_core],
 
-            nextUpgradeSourcesAmount: [100],
+        //     nextUpgradeSourcesAmount:[100],
 
-            nexUpgradeToClassId: 1106,
+        //     nexUpgradeToClassId: 1006,
 
-        };
+        // };
 
-        var Class4 = {
+        // var Class2 = {
 
-            _id: 1106,
+        //     _id: 1006,
 
-            classType: class_type_building,
+        //     classType: class_type_building,
 
-            production: resource_type_iron,
+        //     production: resource_type_food,
 
-            output: 102,
+        //     output: 102,
 
-            outputInterval: ALL_OUTPUT_INTERVAL,
+        //     outputInterval: ALL_OUTPUT_INTERVAL,
 
-            level: 2,
+        //     level: 2,
 
-            nextUpgradeSources: [resource_type_castle_core],
+        //     nextUpgradeSources: [resource_type_castle_core],
 
-            nextUpgradeSourcesAmount: [100],
+        //     nextUpgradeSourcesAmount: [100],
 
-            nexUpgradeToClassId: null,
+        //     nextUpgradeToClassId: null,
 
-        };
-
-        var Class5 = {
-
-            _id: 1205,
-
-            level:2,
-
-        }
+        // };
 
 
+        // var Class3 = {
 
-        var objF = {
-            classId: 1005,
-            remainInterval: 0
-        };
+        //     _id: 1105,
 
-        var objI = {
-            classId: 1105,
-            remainInterval: 0
-        };
+        //     classType: class_type_building,
 
-        // var ClassDic = {
-        //     Class1._id:Class1,
-        //     Class2._id:Class2,
+        //     production: resource_type_iron,
+
+        //     output: 100,
+
+        //     outputInterval: ALL_OUTPUT_INTERVAL,
+
+        //     level: 1,
+
+        //     nextUpgradeSources: [resource_type_castle_core],
+
+        //     nextUpgradeSourcesAmount: [100],
+
+        //     nextUpgradeToClassId: 1106,
+
+        // };
+
+        // var Class4 = {
+
+        //     _id: 1106,
+
+        //     classType: class_type_building,
+
+        //     production: resource_type_iron,
+
+        //     output: 102,
+
+        //     outputInterval: ALL_OUTPUT_INTERVAL,
+
+        //     level: 2,
+
+        //     nextUpgradeSources: [resource_type_castle_core],
+
+        //     nextUpgradeSourcesAmount: [100],
+
+        //     nextUpgradeToClassId: null,
+
+        // };
+
+        // var Class5 = {
+
+        //     _id: 1205,
+
+        //     level:2,
+
         // }
-        var ClassDic = {};
+
+
+
+        // var objF = {
+        //     classId: 1005,
+        //     remainInterval: 0
+        // };
+
+        // var objI = {
+        //     classId: 1105,
+        //     remainInterval: 0
+        // };
+
+        // var ClassDic = {};
         
-        ClassDic[Class1._id] = Class1;
-        ClassDic[Class2._id] = Class2;
-        ClassDic[Class3._id] = Class3;
-        ClassDic[Class4._id] = Class4;
-        ClassDic[Class5._id] = Class5;
+        // ClassDic[Class1._id] = Class1;
+        // ClassDic[Class2._id] = Class2;
+        // ClassDic[Class3._id] = Class3;
+        // ClassDic[Class4._id] = Class4;
+        // ClassDic[Class5._id] = Class5;
 
-        app.globalData.ClassDic = ClassDic;
-
-
-        app.globalData.allBuilding[building_type_food] = objF;
-
-        app.globalData.allBuilding[building_type_iron] = objI;
-
-        app.globalData.allBuilding[building_type_train] = { classId:1205 };
+        // app.globalData.ClassDic = ClassDic;
 
 
-        var timeInterval = 1;
-        this.loopTimer = setInterval(function(){
+        // app.globalData.allBuilding[building_type_food] = objF;
 
-            for (var i = 0; i < app.globalData.allBuilding.length; i ++){
-                var obj = app.globalData.allBuilding[i];
+        // app.globalData.allBuilding[building_type_iron] = objI;
 
-                if(!obj){
-                    continue;
-                }
+        // app.globalData.allBuilding[building_type_train] = { classId:1205 };
 
-                var objClass = ClassDic[obj.classId];
 
-                if(!objClass){
-                    continue;
-                }
+        // var timeInterval = 1;
+        // this.loopTimer = setInterval(function(){
 
-                if (obj.remainInterval <= 0) {
-                    app.globalData.allResource[objClass.production] += objClass.output;
-                    obj.remainInterval = objClass.outputInterval;
-                } else {
-                    obj.remainInterval -= timeInterval;
-                }
+        //     for (var i = 0; i < app.globalData.allBuilding.length; i ++){
+        //         var obj = app.globalData.allBuilding[i];
 
-                // console.log('resource:', oThis.allResource);
+        //         if(!obj){
+        //             continue;
+        //         }
 
-                oThis.setData({ resource: app.globalData.allResource.join(',') });
-            }
+        //         var objClass = ClassDic[obj.classId];
+
+        //         if(!objClass){
+        //             continue;
+        //         }
+
+        //         if (obj.remainInterval <= 0) {
+        //             app.globalData.allResource[objClass.production] += objClass.output;
+        //             obj.remainInterval = objClass.outputInterval;
+        //         } else {
+        //             obj.remainInterval -= timeInterval;
+        //         }
+
+        //         oThis.setData({ resource: app.globalData.allResource.join(',') });
+        //     }
 
             
+
+        // }, 50);
+
+        this.loopTimer = setInterval(function(){
+
+            resourceProduceLoop(1);
+
+            oThis.setData({ resource: [getResourceAmount(LoginTypeEnum.resource_type_iron), getResourceAmount(LoginTypeEnum.resource_type_food)].join(',') });
 
         }, 50);
 
@@ -253,57 +270,25 @@ Page({
     },
     upgrade:function(index){
         var oThis = this;
-        var building = app.globalData.allBuilding[index];
+
+        if(index == 0){
 
 
-        if(!building){
-            return;
+            upgradeBuilding(LoginTypeEnum.building_type_food);
+
+            console.log("food building:", getBuilding(LoginTypeEnum.building_type_food))
+
+        } else if(index == 5){
+
+            upgradeBuilding(LoginTypeEnum.building_type_main_city);
+
+            console.log("main city building:", getBuilding(LoginTypeEnum.building_type_main_city))
+        }else{
+
+            upgradeBuilding(LoginTypeEnum.building_type_iron);
+
+            console.log("iron building:", getBuilding(LoginTypeEnum.building_type_iron))
         }
-
-        var cls = app.globalData.ClassDic[building.classId];
-
-
-        var canUp = !!cls.nexUpgradeToClassId;
-
-
-
-
-        for (var i = 0; i < cls.nextUpgradeSources.length && canUp ;i ++)
-        {
-            var nowUpResourceAmount = app.globalData.allResource[ cls.nextUpgradeSources[i] ];
-
-            var needUpResourceAmount = cls.nextUpgradeSourcesAmount[i];
-
-            if (needUpResourceAmount > nowUpResourceAmount){
-
-                canUp = false;
-                break;
-            }
-
-        }
-
-        if(canUp){
-
-            for (var i = 0; i < cls.nextUpgradeSources.length; i++) {
-                var nowUpResourceAmount = app.globalData.allResource[cls.nextUpgradeSources[i]];
-
-                var needUpResourceAmount = cls.nextUpgradeSourcesAmount[i];
-
-                app.globalData.allResource[cls.nextUpgradeSources[i]] = nowUpResourceAmount - needUpResourceAmount;
-
-            }
-
-
-
-            oThis.allBuilding[index].classId = cls.nexUpgradeToClassId;
-
-            console.log('after upgrade resource:', app.globalData.allResource);
-
-            oThis.setData({ resource: app.globalData.allResource.join(',')});
-
-            console.log('building:', app.globalData.allBuilding[index]);
-        }
-
 
     },
 
