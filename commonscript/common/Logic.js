@@ -6,6 +6,8 @@ const app = getApp();
 
 const class_type_building = 1;
 const class_type_troop = 2;
+const class_type_troop_group = 3;
+const class_type_hero = 3;
 
 const resource_type_wood = 1;//这个序号也是资源数组里的下标索引
 const resource_type_iron = 2;
@@ -16,6 +18,18 @@ const building_type_main_city = 0;
 const building_type_food = 1;
 const building_type_iron = 2;
 const building_type_train = 3;
+
+
+//troop group
+const troop_group_type_1 = 1;
+const troop_group_type_2 = 2;
+const troop_group_type_3 = 3;
+const troop_group_type_4 = 4;
+
+
+const MAX_COUNT_PER_TROOPGROUP = 12;
+
+const MAX_HERO_PER_TROOPGROUP = 3;
 
 const ALL_OUTPUT_INTERVAL = 30;
 
@@ -201,6 +215,82 @@ var Class5 = {
 
 
 
+var ClassT1 = {
+
+    _id: 2005,
+
+    classType: class_type_troop,
+
+    atk: 100,
+
+    hp: 1000,
+
+    def: 20,
+
+    critRate: 1,
+
+    limitAmount:3,
+
+    level: 1,
+
+    productionRequires: [{
+        build: building_type_train,
+        level: 1,
+    }],
+
+    productionConsumptions: [
+        {
+            resource: resource_type_iron,
+            amount: 100,
+        },
+        {
+            resource: resource_type_food,
+            amount: 100,
+        },
+    ]
+
+};
+
+var ClassT2 = {
+
+    _id: 2006,
+
+    classType: class_type_troop,
+
+    atk: 120,
+
+    hp: 1200,
+
+    def: 20,
+
+    critRate: 1,
+
+    limitAmount: 3,
+
+    level: 2,
+
+    productionRequires: [{
+        build: building_type_train,
+        level: 1,
+    }],
+
+    productionConsumptions: [
+        {
+            resource: resource_type_iron,
+            amount: 100,
+        },
+        {
+            resource: resource_type_food,
+            amount: 100,
+        },
+    ]
+
+};
+
+
+
+
+
 var objF = {
     classId: 1005,
     remainInterval: 0
@@ -224,6 +314,8 @@ ClassDic[Class2._id] = Class2;
 ClassDic[Class3._id] = Class3;
 ClassDic[Class4._id] = Class4;
 ClassDic[Class5._id] = Class5;
+ClassDic[ClassT1._id] = ClassT1;
+ClassDic[ClassT2._id] = ClassT2;
 
 app.globalData.ClassDic = ClassDic;
 
@@ -236,6 +328,17 @@ app.globalData.allBuilding[building_type_iron] = objI;
 
 app.globalData.allBuilding[building_type_train] = { classId: Class5._id };
 
+
+app.globalData.allTroopGroups={};
+
+app.globalData.allTroopGroups[troop_group_type_1] = {
+};
+app.globalData.allTroopGroups[troop_group_type_2] = {
+};
+app.globalData.allTroopGroups[troop_group_type_3] = {
+};
+app.globalData.allTroopGroups[troop_group_type_4] = {
+};
 
 function getResourceAmount(resource_type){
 
@@ -255,14 +358,17 @@ function changeResourceAmount(resource_type, changeValue){
 
 
 function getTroopAmount(classId){
-    return app.globalData.troopDic[classId] ? app.globalData.troopDic[classId]: 0;
+    return app.globalData.troopDic[classId] ? app.globalData.troopDic[classId].amount: 0;
 }
 
 function changeTroopAmount(classId, changeValue){
     var count = -1;
+    app.globalData.troopDic = app.globalData.troopDic||{}
     if(app.globalData.troopDic[classId]){
-        app.globalData.troopDic[classId] += changeValue;
-        count = app.globalData.troopDic[classId];
+        app.globalData.troopDic[classId].amount += changeValue;
+        count = app.globalData.troopDic[classId].amount;
+    }else{
+        app.globalData.troopDic[classId] = {amount:1};
     }
 
     return count;
@@ -318,6 +424,7 @@ function produceTroop(classId){
 
     if (canPro) {
 
+        var classObj = app.globalData.ClassDic[classId];
 
         for (var j = 0; j < classObj.productionConsumptions.length; j++) {
 
@@ -466,6 +573,89 @@ function upgradeBuilding(building_type){
 
 }
 
+function getTroopGroup(troop_group_type){
+    return app.globalData.allTroopGroups[troop_group_type];
+}
+
+
+function addTroopGroup(troop_group_type, classId){
+
+    var troopGroup = getTroopGroup(troop_group_type);
+
+    var addCls = app.globalData.ClassDic[classId];
+
+    if(!addCls || !troopGroup){
+        return false;
+    }
+
+    var troop_count = 0;
+
+    var hero_count = 0;
+
+    for(var key in troopGroup){
+
+        if(!!key){
+            
+            var cls = app.globalData.ClassDic[key];
+
+            if(cls.classType == class_type_troop){
+
+                troop_count += troopGroup[key].amount;
+
+                if (cls._id == addCls._id && troopGroup[key].amount >= cls.limitAmount){
+                    return false;
+                }
+
+            }
+
+            if (cls.classType == class_type_hero){
+                hero_count += troopGroup[key].amount;
+            }
+
+
+        }
+
+    }
+
+
+    if(troop_count >= MAX_COUNT_PER_TROOPGROUP){
+        return false;
+    }
+
+
+
+    if (hero_count >= MAX_HERO_PER_TROOPGROUP){
+        return false;
+    }
+
+
+    troopGroup[classId] = troopGroup[classId]||{amount:0};
+
+    troopGroup[classId].amount += 1;
+
+    return true;
+}
+
+
+function getAllTroopCls(){
+    var array = [];
+    for(var key in app.globalData.ClassDic){
+
+        var cls  = app.globalData.ClassDic[key];
+
+        if(!cls){
+            continue;
+        }
+
+        if(cls.classType == class_type_troop){
+            array.push(cls);
+        }
+
+    }
+
+    return array;
+}
+
 
 export {
     LoginTypeEnum,
@@ -478,6 +668,9 @@ export {
     canUpgradeBuilding,
     upgradeBuilding,
     getBuilding,
+    getTroopGroup,
+    addTroopGroup,
+    getAllTroopCls,
     resourceProduceLoop
 }
 

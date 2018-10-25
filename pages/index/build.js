@@ -10,7 +10,10 @@ import {
     produceTroop,
     canUpgradeBuilding,
     upgradeBuilding,
-    getBuilding,
+    getBuilding, 
+    getTroopGroup,
+    addTroopGroup,
+    getAllTroopCls,
     resourceProduceLoop
 } from "../../commonscript/common/Logic.js"
 
@@ -22,6 +25,7 @@ Page({
      */
     data: {
         resource:'',
+        troopClsArray:[],
     },
     
 
@@ -214,6 +218,11 @@ Page({
 
         }, 50);
 
+
+        var array = getAllTroopCls();
+
+        this.setData({ troopClsArray: array});
+
     },
 
 
@@ -262,6 +271,15 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
+
+    },
+    trainGroup: function(e){
+
+        var classId = e.currentTarget.dataset.classId;
+
+        produceTroop(classId);
+
+        console.log("troop:", app.globalData.troopDic);
 
     },
     clickToUpgrade: function(e){

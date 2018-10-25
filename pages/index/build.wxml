@@ -9,4 +9,11 @@
 <view class='build_upgrade' data-build-index='5' bindtap='clickToUpgrade'>5(main_city_building)</view>
 
 
+<view style='height:50px;'></view>
+
 <view bindtap='goGotTrain'>go troop train</view>
+
+<view style='height:50px;'></view>
+
+<view wx:for="{{troopClsArray}}" bindtap='train troop' data-class-id="{{item._id}}" bindtap='trainGroup'>train {{item._id}}</view>
+
